@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Instalar Neon Void</title>
+<style>
+body{margin:0;background:#07041a;color:#e8e6ff;font-family:system-ui,sans-serif;line-height:1.5;padding:24px;max-width:560px;margin:auto}
+h1{color:#00f0ff;text-shadow:0 0 12px #ff00c8}
+.box{border:1px solid #ff00c8;border-radius:12px;padding:14px 16px;margin:16px 0;background:#110a33}
+a.btn{display:block;text-align:center;background:#00f0ff;color:#07041a;font-weight:700;text-decoration:none;padding:14px;border-radius:10px;margin:10px 0}
+h2{margin:0 0 6px;font-size:18px;color:#ff5fd8}
+</style></head><body>
+<h1>NEON VOID</h1>
+<a class="btn" href="./">▶ JOGAR AGORA</a>
+<div class="box"><h2>📱 iPhone (Safari)</h2>
+Abra este link no <b>Safari</b> → toque em <b>Compartilhar</b> (quadrado com seta) → <b>Adicionar à Tela de Início</b>.</div>
+<div class="box"><h2>🤖 Android</h2>
+<b>Opção 1 (app instalado):</b> baixe o APK abaixo e instale (permita "fontes desconhecidas").
+<a class="btn" id="apk" href="#">⬇ Baixar APK</a>
+<b>Opção 2:</b> no Chrome, menu ⋮ → <b>Instalar app</b>. Atualiza sozinho.</div>
+<script>
+var h=location.hostname.split('.'),u=h[0],r=location.pathname.split('/')[1];
+if(h[1]==='github'&&r)document.getElementById('apk').href='https://github.com/'+u+'/'+r+'/releases/latest/download/NeonVoid.apk';
+</script></body></html>

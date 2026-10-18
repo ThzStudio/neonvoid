@@ -1,0 +1,41 @@
+plugins { id 'com.android.application' }
+
+// Assinatura: le de keystore.properties (local) OU de variaveis de ambiente (GitHub Actions)
+def ksProps = new Properties()
+def ksFile = rootProject.file('keystore.properties')
+if (ksFile.exists()) ksFile.withInputStream { ksProps.load(it) }
+def ks = { String k, String env -> ksProps.getProperty(k) ?: System.getenv(env) }
+def ksPath = ks('storeFile', 'KEYSTORE_FILE')
+
+android {
+    namespace 'com.thzstudio.neonvoid'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.thzstudio.neonvoid'
+        minSdk 23
+        targetSdk 36            // Google Play exige 36 para novos apps desde 31/08/2026
+        versionCode (System.getenv('VERSION_CODE') ?: '1').toInteger()   // o GitHub aumenta sozinho a cada build
+        versionName "1.${System.getenv('VERSION_CODE') ?: '0'}"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    sourceSets { main { assets.srcDirs = ['../docs'] } }   // o jogo vive em docs/ (mesmo arquivo para web e APK)
+    signingConfigs {
+        release {
+            if (ksPath) {
+                storeFile file(ksPath)
+                storePassword ks('storePassword', 'KEYSTORE_PASSWORD')
+                keyAlias ks('keyAlias', 'KEY_ALIAS')
+                keyPassword ks('keyPassword', 'KEY_PASSWORD')
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (ksPath) signingConfig signingConfigs.release
+        }
+    }
+}
